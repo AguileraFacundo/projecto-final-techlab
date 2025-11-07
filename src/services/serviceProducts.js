@@ -2,7 +2,7 @@ import { create,
         findOne, 
         findAll,
         updateOne, 
-        deleteOne} from '../repositories/products.js'
+        deleteOne } from '../repositories/products.js'
 
 
 export const createProduct = async (productData) => {
