@@ -2,14 +2,14 @@
   "name": "primer-intento",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=.env --experimental-strip-types ./src/server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "facundo aguilera",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.3",

@@ -1,9 +1,16 @@
 import express from 'express'
+import { createOne,
+        getOne,
+        getMany,
+        updateOne,
+        deleteOne } from '../controllers/productsControllers.js'
+
 const router = express.Router();
 
-router.get('/', ()=> {});
-router.post('/', ()=> {});
-router.put('/:id', ()=> {});
-router.delete('/:id', ()=> {});
+router.post('/', createOne);
+router.get('/:id', getOne);
+router.get('/', getMany);
+router.put('/:id', updateOne);
+router.delete('/:id', deleteOne);
 
 export default router
