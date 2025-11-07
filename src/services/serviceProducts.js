@@ -33,7 +33,7 @@ export const allProducts = async (filters = {}) => {
 export const updateProduct = async (productId, updateData) => {
         await db.collection(collectionName).doc(productId).update({
             ...updateData,
-            updateAt: new Date()
+            updatedAt: new Date()
         })
         return findById(productId)
 }
