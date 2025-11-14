@@ -1,8 +1,8 @@
 import express from 'express'
-import authRoutes from './routes/authRoutes.js'
-import productRoutes from './routes/productRoutes.js'
-import { authMiddleware } from './middleware/authMiddleware.js'
-import { cors } from 'cors'
+import authRoutes from './src/routes/authRoutes.js'
+import productRoutes from './src/routes/productRoutes.js'
+import { authMiddleware } from './src/middleware/authMiddleware.js'
+import cors from 'cors'
 
 const app = express()
 const PORT = process.env.PORT || 5000

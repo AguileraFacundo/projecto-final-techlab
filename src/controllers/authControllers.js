@@ -12,6 +12,7 @@ export const register = async (req, res) => {
     }
     try {
         const check = await checkEmail(email)
+        
         if (!check.empty) {
             return res.status(400).json({ 
                 "status": "fail",
@@ -23,7 +24,7 @@ export const register = async (req, res) => {
         
         const user = await createEmail(email, hashedPassword)
 
-        const token = jwt.sign({id: userRef.id, email: email}, 
+        const token = jwt.sign({id: user.id, email: email}, 
             process.env.JWT_SECRET, {expiresIn: "24h"})
         
         return res.status(201).json({

@@ -1,4 +1,4 @@
-import { db } from '../../firebase.js'
+import db from '../../firebase.js'
 
 export const checkEmail = async (email) => {
     const usersRef = db.collection("users")
@@ -14,10 +14,13 @@ export const getEmail = async (email) => {
 
 export const createEmail = async (email, hashedPassword) => {
     const userRef = db.collection("users")
-    await userRef.add({
+    const docRef = await userRef.add({
         email: email,
         password: hashedPassword,
         createAt: new Date()
     })
-    return userRef
+    return {
+        id: docRef.id,
+        email: email,
+    }
 }
