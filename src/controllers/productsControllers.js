@@ -1,8 +1,9 @@
-import { createProduct,
-        findById, 
-        allProducts, 
-        deleteProduct, 
-        updateProduct } from '../services/serviceProducts.js'
+import { 
+    createProduct,
+    findById, 
+    allProducts, 
+    deleteProduct, 
+    updateProduct } from '../services/serviceProducts.js'
 
 export const createOne = async (req, res) => {
     try {
