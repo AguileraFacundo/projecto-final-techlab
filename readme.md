@@ -4,10 +4,8 @@
 
 **Rutas**
 
-*Login*
+*Login y register*
 - /api/auth/login
-
-*Register*
 - /api/auth/register
 
 *Products*
