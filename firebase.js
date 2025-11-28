@@ -1,24 +1,16 @@
-import { initializeApp, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore";
 
 const creds = {
-    "type": process.env.TYPE,
-    "project_id": process.env.PROJECT_ID,
-    "private_key_id": process.env.PRIVATE_KEY_ID,
-    "private_key": process.env.PRIVATE_KEY,
-    "client_email": process.env.CLIENT_EMAIL,
-    "client_id": process.env.CLIENT_ID,
-    "auth_uri": process.env.AUTH_URI,
-    "token_uri": process.env.TOKEN_URI,
-    "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER,
-    "client_x509_cert_url": process.env.CLIENT_CERT_URL,
-    "universe_domain": process.env.UNIVERSE_DOMAIN
-};
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: "techlab-proyecto-final.firebaseapp.com",
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket:  process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:  process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId:  process.env.FIREBASE_APP_ID
+}
 
-initializeApp({
-    credential: cert(creds)
-})
-
-const db = getFirestore()
+const app = initializeApp(creds)
+const db = getFirestore(app)
 
 export default db

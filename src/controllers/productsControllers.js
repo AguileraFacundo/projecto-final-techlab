@@ -1,11 +1,6 @@
-import { 
-    createProduct,
-    findById, 
-    allProducts, 
-    deleteProduct, 
-    updateProduct } from '../services/serviceProducts.js'
+import { createOne, findOne, updateOne, findAll, deleteOne } from "../repositories/products.js"
 
-export const createOne = async (req, res) => {
+export const createProduct = async (req, res) => {
     try {
         const { title, price, category } = req.body
         if ( !title || !price || !category ){
@@ -14,7 +9,7 @@ export const createOne = async (req, res) => {
                 "message": "invalid request" 
             })
         }
-        const product = await createProduct({ title, price, category })
+        const product = await createOne({ title, price, category })
         res.status(201).json(product)
     }catch (err) {
         res.status(400).json({ 
@@ -27,13 +22,14 @@ export const createOne = async (req, res) => {
 export const getOne = async (req, res) => {
     try {
         const { id } = req.params
-        const product = await findById(id)
+        const product = await findOne(id)
     
         if (!product) {
             return res.status(404).json({ 
                 "status": "fail",
                 "message": "product not found" 
-            })}
+            })
+        }
     
         res.status(200).json(product)
     }catch (err) {
@@ -47,8 +43,13 @@ export const getOne = async (req, res) => {
 
 export const getMany = async (req, res) => {
     try {
-        const { category } = req.query
-        const products = await allProducts({ category })
+        const products = await findAll()
+        if (!products) {
+            return res.status(403).json({
+                "status": "fail",
+                "message": "products not found"
+            })
+        }
         res.status(200).json(products)
     }catch (err) {
         res.status(400).json({ 
@@ -58,12 +59,16 @@ export const getMany = async (req, res) => {
     }
 }
 
-export const updateOne = async (req, res) => {
+export const updateProduct = async (req, res) => {
     try {
         const { id } = req.params
         const updateData = req.body
-        const product = await updateProduct(id, updateData)
-        return res.status(200).json(product)
+        const productUpdate = await updateOne(id, updateData)
+        if (!productUpdate) return res.status(400).json({
+            "status": "fail",
+            "message": "update failed"
+        })
+        return res.status(200).json(productUpdate)
     }catch (err) {
         return res.status(400).json({ 
             "status": "fail",
@@ -71,17 +76,17 @@ export const updateOne = async (req, res) => {
         })
     }
 }
-export const deleteOne = async (req, res) => {
+export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params
-        const checkProduct = await findById(id)
+        const checkProduct = await findOne(id)
         if (!checkProduct) {
             return res.status(400).json({ 
                 "status": "fail",
                 "message": "invalid id" 
             })
         }
-        await deleteProduct(id)
+        await deleteOne(id)
         return res.status(204).send()
 
     }catch (err) {
