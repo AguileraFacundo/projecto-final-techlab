@@ -2,14 +2,14 @@ import { createOne, findOne, updateOne, findAll, deleteOne } from "../repositori
 
 export const createProduct = async (req, res) => {
     try {
-        const { title, price, category } = req.body
-        if ( !title || !price || !category ){
+        const { name, price, category } = req.body
+        if ( !name || !price || !category ){
             return res.status(400).json({ 
                 "status": "fail",
                 "message": "invalid request" 
             })
         }
-        const product = await createOne({ title, price, category })
+        const product = await createOne({ name, price, category })
         res.status(201).json(product)
     }catch (err) {
         res.status(400).json({ 
