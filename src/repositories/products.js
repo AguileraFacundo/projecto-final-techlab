@@ -33,7 +33,7 @@ export const findAll = async () => {
 
         return snapQuery.docs.map(doc => ({ id: doc.id, ...doc.data() }))
     } catch (err) {
-        return err
+        throw err
     }
 }
 
@@ -43,9 +43,10 @@ export const updateOne = async (productId, updateData) => {
         await updateDoc(docRef, updateData)
         const response = await findOne(productId)
         if (!response) return false;
+        
         return response
     } catch (err) {
-        return err
+        throw err
     }
 
 }
@@ -55,6 +56,6 @@ export const deleteOne = async (productId) => {
         const docRef = doc(productsColecction, productId)
         await deleteDoc(docRef)
     } catch (err) {
-        return err
+        throw err
     }
 }
