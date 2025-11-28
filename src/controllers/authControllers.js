@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { checkEmail, createEmail, getEmail } from '../repositories/auth.js'
+import { checkEmail, createEmail } from '../repositories/auth.js'
 
 export const register = async (req, res) => {
     const { email, password } = req.body;
@@ -11,9 +11,9 @@ export const register = async (req, res) => {
         });
     }
     try {
-        const check = await checkEmail(email)
-        
-        if (!check.empty) {
+        const snapshot = await checkEmail(email)
+
+        if (!snapshot.empty) {
             return res.status(400).json({ 
                 "status": "fail",
                 "message": "email already exists" 
@@ -44,15 +44,15 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password} = req.body;
     try {
-        const check = await getEmail(email)
-        if (check.empty) {
+        const snapshot = await checkEmail(email)
+        if (snapshot.empty) {
             return res.status(401).json({ 
                 "status": "fail",
                 "message": "Invalid credentials" 
             });
         }        
         
-        const userDoc = check.docs[0];
+        const userDoc = snapshot.docs[0];
         const userData = userDoc.data();
         
         const isPasswordValid = await bcrypt.compare(password, userData.password)

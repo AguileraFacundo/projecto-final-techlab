@@ -1,8 +1,7 @@
 import db from "../../firebase.js"
 import { collection, getDocs, getDoc, addDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
     
-const collectionName = "products"
-const productsColecction = collection(db, collectionName)
+const productsColecction = collection(db, "products")
 
 export const createOne = async (productData) => {
     try {

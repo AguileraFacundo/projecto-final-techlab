@@ -1,26 +1,29 @@
 import db from '../../firebase.js'
+import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+
+const userColection = collection(db, "users")
 
 export const checkEmail = async (email) => {
-    const usersRef = db.collection("users")
-    const snapshot = await usersRef.where("email", "==", email).get()
-    return snapshot
-}
-
-export const getEmail = async (email) => {
-    const usersRef = db.collection("users")
-    const snapshot = await usersRef.where("email", "==", email).limit(1).get()
-    return snapshot
+    try {
+        const q = query(userColection, where("email", "==", email.trim()))
+        const snapshot = (await getDocs(q))
+        return snapshot
+    } catch (err) {
+        throw err
+    }
 }
 
 export const createEmail = async (email, hashedPassword) => {
-    const userRef = db.collection("users")
-    const docRef = await userRef.add({
-        email: email,
-        password: hashedPassword,
-        createAt: new Date()
-    })
-    return {
-        id: docRef.id,
-        email: email,
+    try {
+        const user = await addDoc(userColection, {
+            email: email,
+            password: hashedPassword
+        })
+        return {
+            id: user.id,
+            email: email,
+        }
+    } catch (err) {
+        throw err
     }
 }
