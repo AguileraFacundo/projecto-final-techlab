@@ -7,7 +7,7 @@ import { createProduct,
 
 const router = express.Router();
 
-router.post('/', createProduct);
+router.post('/create', createProduct);
 router.get('/:id', getOne);
 router.get('/', getMany);
 router.put('/:id', updateProduct);
